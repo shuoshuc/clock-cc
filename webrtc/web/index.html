@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebRTC working example</title>
+</head>
+<body>
+    <video id="localStream" playsinline controls>
+        <!-- NB CORS: https://bugzilla.mozilla.org/show_bug.cgi?id=1177793 -->
+        <source src="chrome.mp4" type="video/mp4"/>
+        <p>This browser does not support the video element.</p>
+    </video>
+    <video id="remoteStream" autoplay playsinline controls></video>
+    <script src="socket.io.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
