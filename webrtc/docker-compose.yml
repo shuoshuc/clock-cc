@@ -22,14 +22,23 @@ services:
       - webrtc
 
 
-# web:
-#   build: ./web/
-#   container_name: web
-#   image: web
-#   ports:
-#     - "7000:7000"
-#   networks:
-#     - webrtc
+  web-server:
+    build: ./server/
+    container_name: web-server
+    image: web-server
+    ports:
+      - "8000:8000"
+    networks:
+      - webrtc
+
+  web-client:
+    build: ./client/
+    container_name: web-client
+    image: web-client
+    ports:
+      - "7000:7000"
+    networks:
+      - webrtc
 
 networks:
     webrtc:
