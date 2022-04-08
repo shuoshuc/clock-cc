@@ -6,18 +6,18 @@
 # each port. Switch uses DPDK for higher performance. The config is standard
 # Click configuration but only tested with FastClick.
 # Config below emulates an asymmetric bottleneck:
-#    uplink (port 0): 5Mbps bandwidth, 15msec delay, buffer 300 pkts (MTU1500).
-#    downlink (port 1): 100Mbps bandwidth, 5msec delay, buffer 3000 pkts.
+#    uplink (port 0): 10Mbps bandwidth, 10msec delay, buffer 80 pkts (MTU1500).
+#    downlink (port 1): 100Mbps bandwidth, 10msec delay, buffer 400 pkts.
 
 cat << "EOF" | nice -n -20 click --dpdk -c 0xff0 -n 1 --
 define ($DEVNAME0 0000:a3:00.0)
 define ($DEVNAME1 0000:a3:00.1)
-define ($UP_BW_Gbps 0.005000Gbps)
+define ($UP_BW_Gbps 0.010000Gbps)
 define ($DOWN_BW_Gbps 0.100000Gbps)
-define ($UP_DELAY_s 0.015)
-define ($DOWN_DELAY_s 0.005)
-define ($UP_BUF_SIZE 300)
-define ($DOWN_BUF_SIZE 3000)
+define ($UP_DELAY_s 0.010)
+define ($DOWN_DELAY_s 0.010)
+define ($UP_BUF_SIZE 80)
+define ($DOWN_BUF_SIZE 400)
 define ($L2TIMEOUT 3600)
 
 in0 :: FromDPDKDevice($DEVNAME0)
