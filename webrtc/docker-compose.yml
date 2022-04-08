@@ -1,5 +1,4 @@
 version: '3'
-
 services:
 
 # turn-server:
@@ -13,30 +12,33 @@ services:
 #     - webrtc
 
   signaling-server:
+    image: signaling
     build: ./signaling/
     container_name: signaling-server
-    image: signaling
     ports:
       - "9999:9999"
     networks:
       - webrtc
 
-
   web-server:
-    build: ./server/
-    container_name: web-server
     image: web-server
+    build:
+      context: ./web
+      dockerfile: server.Dockerfile
+    container_name: web-server
     ports:
-      - "8000:8000"
+      - "5000:5000"
     networks:
       - webrtc
 
   web-client:
-    build: ./client/
-    container_name: web-client
     image: web-client
+    build:
+      context: ./web
+      dockerfile: client.Dockerfile
+    container_name: web-client
     ports:
-      - "7000:7000"
+      - "5001:5001"
     networks:
       - webrtc
 
