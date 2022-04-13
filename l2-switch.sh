@@ -20,6 +20,8 @@ define ($UP_BUF_SIZE 80)
 define ($DOWN_BUF_SIZE 400)
 define ($L2TIMEOUT 3600)
 
+ControlSocket(tcp, 9000);
+
 in0 :: FromDPDKDevice($DEVNAME0)
 in1 :: FromDPDKDevice($DEVNAME1)
 out0 :: ToDPDKDevice($DEVNAME0)
