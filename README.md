@@ -74,8 +74,8 @@ $ sudo modprobe tcp_bbr tcp_vegas tcp_cdg tcp_lp tcp_yeah
 ```
 $ git clone https://github.com/shuoshuc/CCA.git
 $ cd CCA
-$ vi flowgrind.sh <- update NUM_FLOWS accordingly.
-$ ./flowgrind.sh
+$ vi flowgrind.py <- update NUM_FLOWS accordingly.
+$ python3 flowgrind.py
 $ cat fg.log <- log is saved here.
 ```
 
