@@ -85,3 +85,15 @@ With fg.log, we extract a few useful values such as throughput, cwnd, rtt. Use t
 $ cd CCA
 $ ./fg_parser.sh data/fg.log
 ```
+
+## Step 10. Hack a CCA
+To build a new CCA for study, we need to compile it as a kernel module like other CCA variants. First, install a copy of the kernel source code that matches the currently installed kernel.
+```
+$ sudo apt install linux-headers-$(uname -r)
+```
+Then build the new CCA (e.g., TCP LP2) as a module and insert it into the kernel.
+```
+$ cd CCA/tcp_lp2
+$ sudo make
+$ sudo insmod tcp_lp2.ko
+```
