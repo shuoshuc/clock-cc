@@ -35,23 +35,29 @@ DOWNQ = 'ohMyBtl/Queue@3'
 HANDLER = 'length'
 POLL_INTERVAL_S = 0.005
 
-def runFlowgrind():
+def runFlowgrind(bidi):
     base_params = f"-i 0.01 -n {NUM_FLOWS} -I"
-    s2c_param = (f" -F 0 -T s={DOWN_FLOW_DUR} -O s=TCP_CONGESTION={S2C_CCA} "
-                 f"-H s={SERVER_DATA_IP}/{SERVER_CTL_IP},"
-                 f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}")
-    c2s_param = (f" -F 1 -T s={UP_FLOW_DUR} -O s=TCP_CONGESTION={C2S_CCA} "
-                 f"-Y s=2.0 -H s={CLIENT_DATA_IP}/{CLIENT_CTL_IP},"
-                 f"d={SERVER_DATA_IP}/{SERVER_CTL_IP}")
-    s2c2_param = (f" -F 2 -T s={DOWN_FLOW2_DUR} -O s=TCP_CONGESTION={S2C2_CCA} "
-                  f" -Y s=4.0 -H s={SERVER_DATA_IP}/{SERVER_CTL_IP},"
-                  f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}")
+    if not bidi:
+        s2c_param = (f" -T s={DOWN_FLOW_DUR} -O s=TCP_CONGESTION={S2C_CCA} "
+                     f"-H s={SERVER_DATA_IP}/{SERVER_CTL_IP},"
+                     f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}")
+    else:
+        s2c_param = (f" -F 0 -T s={DOWN_FLOW_DUR} -O s=TCP_CONGESTION={S2C_CCA} "
+                     f"-H s={SERVER_DATA_IP}/{SERVER_CTL_IP},"
+                     f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}")
+        c2s_param = (f" -F 1 -T s={UP_FLOW_DUR} -O s=TCP_CONGESTION={C2S_CCA} "
+                     f"-Y s=2.0 -H s={CLIENT_DATA_IP}/{CLIENT_CTL_IP},"
+                     f"d={SERVER_DATA_IP}/{SERVER_CTL_IP}")
+        s2c2_param = (f" -F 2 -T s={DOWN_FLOW2_DUR} -O s=TCP_CONGESTION={S2C2_CCA} "
+                      f" -Y s=4.0 -H s={SERVER_DATA_IP}/{SERVER_CTL_IP},"
+                      f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}")
     output_param = f" 2>&1 | tee {LOGFILE}"
     params = base_params + s2c_param
-    if NUM_FLOWS >= 2:
-        params += c2s_param
-    if NUM_FLOWS >= 3:
-        params += s2c2_param
+    if bidi:
+        if NUM_FLOWS >= 2:
+            params += c2s_param
+        if NUM_FLOWS >= 3:
+            params += s2c2_param
     os.system("flowgrind " + params + output_param)
 
 def collectQueueStat(elem, csvname):
@@ -73,7 +79,7 @@ def collectQueueStat(elem, csvname):
         writer.writerows(qlen_array)
 
 if __name__ == "__main__":
-    fg = Process(target=runFlowgrind)
+    fg = Process(target=runFlowgrind, args=(False,))
     qstat_down = Process(target=collectQueueStat, args=(DOWNQ,'downq.csv',))
     qstat_up = Process(target=collectQueueStat, args=(UPQ,'upq.csv',))
     for p in [fg, qstat_down, qstat_up]:
