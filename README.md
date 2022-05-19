@@ -30,7 +30,7 @@ $ sudo ldconfig
 ```
 $ git clone https://github.com/tbarbette/fastclick.git
 $ cd fastclick
-$ ./configure --enable-dpdk --enable-intel-cpu --verbose --enable-select=poll CFLAGS="-O3" CXXFLAGS="-std=c++11 -O3"  --disable-dynamic-linking --enable-poll --enable-bound-port-transfer --enable-local --enable-flow --disable-task-stats --disable-cpu-load --enable-nanotimestamp --enable-batch --with-netmap=no --enable-zerocopy --disable-dpdk-pool --disable-dpdk-packet --enable-etherswitch
+$ ./configure --enable-multithread --enable-user-multithread --enable-dpdk --disable-linuxmodule --enable-intel-cpu --verbose --enable-select=poll CFLAGS="-g -O3" CXXFLAGS="-g -std=c++11 -O3"  --disable-dynamic-linking --enable-poll --enable-bound-port-transfer --enable-local --enable-flow --disable-task-stats --disable-cpu-load --enable-nanotimestamp --enable-batch --with-netmap=no --enable-zerocopy --disable-dpdk-pool --disable-dpdk-packet --enable-etherswitch
 $ make -j $(nproc)
 $ sudo make install
 ```
