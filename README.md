@@ -17,7 +17,7 @@ We use [FastClick](https://github.com/tbarbette/fastclick) + [DPDK](https://www.
 First, download DPDK src pack.
 ```
 $ tar xvf dpdk-21.11.tar.xz
-$ pip3 install meson
+$ pip3 install meson ninja pyselftools
 $ cd dpdk-21.11
 $ meson build
 $ cd build
