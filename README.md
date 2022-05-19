@@ -12,7 +12,7 @@ The testbed topology is depicted as follows.
 
 ![topology](testbed-topology.png?raw=true)
 
-## Step 1. Install DPDK 21.11 LTS on Ubuntu 18.04.
+## Step 1. Install DPDK 21.11 LTS on Ubuntu 18.04/20.04.
 We use [FastClick](https://github.com/tbarbette/fastclick) + [DPDK](https://www.dpdk.org/) to emulate a bottleneck with high performance and flexibility.
 First, download DPDK src pack.
 ```
