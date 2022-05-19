@@ -16,8 +16,9 @@ The testbed topology is depicted as follows.
 We use [FastClick](https://github.com/tbarbette/fastclick) + [DPDK](https://www.dpdk.org/) to emulate a bottleneck with high performance and flexibility.
 First, download DPDK src pack.
 ```
+$ sudo apt install ninja-build
 $ tar xvf dpdk-21.11.tar.xz
-$ pip3 install meson ninja pyelftools
+$ pip3 install meson pyelftools
 $ cd dpdk-21.11
 $ meson build
 $ cd build
@@ -28,6 +29,7 @@ $ sudo ldconfig
 
 ## Step 2. Install FastClick with DPDK support.
 ```
+$ sudo apt install libfile-which-perl
 $ git clone https://github.com/tbarbette/fastclick.git
 $ cd fastclick
 $ ./configure --enable-multithread --enable-user-multithread --enable-dpdk --disable-linuxmodule --enable-intel-cpu --verbose --enable-select=poll CFLAGS="-g -O3" CXXFLAGS="-g -std=c++11 -O3"  --disable-dynamic-linking --enable-poll --enable-bound-port-transfer --enable-local --enable-flow --disable-task-stats --disable-cpu-load --enable-nanotimestamp --enable-batch --with-netmap=no --enable-zerocopy --disable-dpdk-pool --disable-dpdk-packet --enable-etherswitch
