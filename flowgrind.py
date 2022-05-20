@@ -21,7 +21,7 @@ CLIENT_CTL_IP = "128.105.145.240"
 SERVER_DATA_IP = "10.0.0.2"
 SERVER_CTL_IP = "128.105.145.242"
 S2C_CCA = "bbr"
-DOWN_FLOW_DUR = 30.0
+DOWN_FLOW_DUR = 60.0
 MAX_WAIT_DUR = 5.0
 LOGFILE = "fg.log"
 NUM_FLOWS = 2
@@ -39,10 +39,11 @@ def runFlowgrind():
     for fid in range(NUM_FLOWS):
         RAND_WAIT = uniform(0, MAX_WAIT_DUR)
         FLOW_DUR = DOWN_FLOW_DUR - RAND_WAIT
+        CTRL_PORT = 6000 + fid % 2 + 1
         base_params += (f" -F {fid} -Y s={RAND_WAIT} -T s={FLOW_DUR} "
                         f"-O s=TCP_CONGESTION={S2C_CCA} "
-                        f"-H s={SERVER_DATA_IP}/{SERVER_CTL_IP},"
-                        f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}")
+                        f"-H s={SERVER_DATA_IP}/{SERVER_CTL_IP}:{CTRL_PORT},"
+                        f"d={CLIENT_DATA_IP}/{CLIENT_CTL_IP}:{CTRL_PORT}")
     output_param = f" 2>&1 | tee {LOGFILE}"
     os.system("flowgrind " + base_params + output_param)
 
