@@ -1,4 +1,4 @@
-# Cloud gaming congestion control
+# Clocks and congestion control
 This project aims to measure how each congestion control algorithm performs when
 a globally synchronized clock is available. To this end, we emulate a bottleneck
 with configurable bandwidth and latency, as well as a corresponding buffer size
