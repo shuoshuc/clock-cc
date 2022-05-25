@@ -9,7 +9,7 @@
 # port 0 and server to port 1:
 #    5 Gbps bandwidth, 20msec RTT, buffer 5000 pkts (MTU1500).
 
-+cat << "EOF" | nice -n -20 click --dpdk -l 16-31 -n 1 --
+cat << "EOF" | nice -n -20 click --dpdk -l 16-31 -n 1 --
 define ($DEVNAME0 0000:41:00.0)
 define ($DEVNAME1 0000:41:00.1)
 define ($UP_BW_Gbps 10.000000Gbps)
