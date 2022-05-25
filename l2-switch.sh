@@ -9,15 +9,15 @@
 # port 0 and server to port 1:
 #    5 Gbps bandwidth, 20msec RTT, buffer 5000 pkts (MTU1500).
 
-cat << "EOF" | nice -n -20 click --dpdk -l 8-23 -n 4 --
-define ($DEVNAME0 0000:81:00.0)
-define ($DEVNAME1 0000:81:00.1)
-define ($UP_BW_Gbps 5.000000Gbps)
-define ($DOWN_BW_Gbps 5.000000Gbps)
++cat << "EOF" | nice -n -20 click --dpdk -l 16-31 -n 1 --
+define ($DEVNAME0 0000:41:00.0)
+define ($DEVNAME1 0000:41:00.1)
+define ($UP_BW_Gbps 10.000000Gbps)
+define ($DOWN_BW_Gbps 10.000000Gbps)
 define ($UP_DELAY_s 0.010)
 define ($DOWN_DELAY_s 0.010)
-define ($UP_BUF_SIZE 5000)
-define ($DOWN_BUF_SIZE 5000)
+define ($UP_BUF_SIZE 250000)
+define ($DOWN_BUF_SIZE 250000)
 define ($L2TIMEOUT 3600)
 
 ControlSocket(tcp, 9000);
