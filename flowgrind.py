@@ -10,6 +10,7 @@
 #   Then, simply execute python3 flowgrind.py
 
 import os
+import sys
 import socket
 import time
 import csv  
@@ -34,9 +35,9 @@ DOWNQ = 'ohMyBtl/downq'
 HANDLER = 'length'
 POLL_INTERVAL_S = 0.005
 
-def runFlowgrind():
-    base_params = f"-i 0.01 -n {NUM_FLOWS} -I -O s=TCP_CONGESTION={S2C_CCA}"
-    for fid in range(NUM_FLOWS):
+def runFlowgrind(nflows):
+    base_params = f"-i 0.01 -n {nflows} -I -O s=TCP_CONGESTION={S2C_CCA}"
+    for fid in range(nflows):
         RAND_WAIT = round(uniform(0, MAX_WAIT_DUR), 1)
         FLOW_DUR = DOWN_FLOW_DUR - RAND_WAIT
         CTRL_PORT = 6000 + fid % 2 + 1
@@ -65,7 +66,8 @@ def collectQueueStat(elem, csvname):
         writer.writerows(qlen_array)
 
 if __name__ == "__main__":
-    fg = Process(target=runFlowgrind)
+    nflows = int(sys.argv[1]) if len(sys.argv) >= 2 else NUM_FLOWS
+    fg = Process(target=runFlowgrind, args=(nflows,))
     proc = [fg]
     if QUEUE_LOG:
         qstat_down = Process(target=collectQueueStat, args=(DOWNQ,'downq.csv',))
