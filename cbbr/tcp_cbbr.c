@@ -1141,7 +1141,7 @@ static void bbr_set_state(struct sock *sk, u8 new_state)
 
 static struct tcp_congestion_ops tcp_bbr_cong_ops __read_mostly = {
 	.flags		= TCP_CONG_NON_RESTRICTED,
-	.name		= "bbr_sync",
+	.name		= "cbbr",
 	.owner		= THIS_MODULE,
 	.init		= bbr_init,
 	.cong_control	= bbr_main,
@@ -1169,6 +1169,6 @@ module_init(bbr_register);
 module_exit(bbr_unregister);
 
 MODULE_AUTHOR("Sagar Bharadwaj <skalasib@andrew.cmu.edu>");
-MODULE_AUTHOR("Shawn Chen <shuoshuoc@andrew.cmu.edu>");
+MODULE_AUTHOR("Shawn Chen <shuoshuoc@cs.cmu.edu>");
 MODULE_LICENSE("Dual BSD/GPL");
-MODULE_DESCRIPTION("TCP BBR (Bottleneck Bandwidth and RTT)");
+MODULE_DESCRIPTION("TCP CBBR");
