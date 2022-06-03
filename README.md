@@ -22,11 +22,11 @@ We use [Click](https://github.com/kohler/click) + [DPDK](https://www.dpdk.org/)
 to emulate a bottleneck with high performance and flexibility.
 First, download DPDK src pack.
 ```
-$ sudo apt install rdma-core libibverbs-dev libmnl-dev
+$ sudo apt install rdma-core libibverbs-dev libmnl-dev libnuma-dev
 $ tar xvf dpdk-19.11.12.tar.xz
 $ cd dpdk-stable-19.11.12
 $ vi config/common_base
-$ (Change CONFIG_RTE_EAL_IGB_UIO=n to =y if using Intel NICs, or change CONFIG_RTE_LIBRTE_MLX5_PMD=n to =y if using Mellanox NICs.)
+$ (Change CONFIG_RTE_EAL_IGB_UIO=n to =y if using Intel NICs, or change CONFIG_RTE_LIBRTE_MLX5_PMD=n to =y if using Mellanox CX5 NICs.)
 $ make -j $(nproc) install T=x86_64-native-linuxapp-gcc
 $ echo -e "export RTE_SDK=${PWD}\nexport RTE_TARGET=x86_64-native-linuxapp-gcc" >> ~/.bashrc
 $ source ~/.bashrc
