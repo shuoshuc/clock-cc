@@ -88,6 +88,20 @@ def waitThru(folder):
         writer.writerow(['run', 'flow', 'wait(sec)', 'thru(Mbps)'])
         writer.writerows(wait_tputs)
 
+def kernLog(logfile):
+    entries = []
+    pattern = re.compile(r".*\[(.*) PROBE_RTT\] sk=(\d+) at (\d+), min_rtt_us=(\d+)")
+    with open(logfile, 'r') as f:
+        for line in f:
+            match = pattern.match(line)
+            if match:
+                entries.append((match.group(1), match.group(2), match.group(3), match.group(4)))
+    csvfile = logfile.split('.')[0] + '.csv'
+    with open(csvfile, 'w') as outf:
+        writer = csv.writer(outf)
+        writer.writerow(['state', 'sk', 'ts(ns)', 'minrtt(us)'])
+        writer.writerows(entries)
+
 if __name__ == "__main__":
     if sys.argv[1] == 'log':
         logs = Path(sys.argv[2]).glob('*.log')
@@ -104,3 +118,5 @@ if __name__ == "__main__":
         finalJFI(sys.argv[2])
     elif sys.argv[1] == 'wait':
         waitThru(sys.argv[2])
+    elif sys.argv[1] == 'kern':
+        kernLog(sys.argv[2])
