@@ -113,7 +113,7 @@ $ sudo apt install linux-headers-$(uname -r)
 ```
 Then build the new CCA (e.g., TCP LP2) as a module and insert it into the kernel.
 ```
-$ cd CCA/tcp_lp2
+$ cd clock-cc/tcp_lp2
 $ sudo make
 $ sudo insmod tcp_lp2.ko
 ```
