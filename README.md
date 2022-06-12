@@ -89,6 +89,7 @@ Additionally, it has a nice centralized control, which makes running large
 experiments and data collection much easier. To run experiments with different
 flows, execute the following commands.
 ```
+$ sudo apt install flowgrind
 $ git clone https://github.com/shuoshuc/clock-cc.git
 $ cd clock-cc
 $ vi flowgrind.py <- update NUM_FLOWS accordingly.
