@@ -64,8 +64,8 @@ $ $RTE_SDK/usertools/dpdk-devbind.py --status
 
 ## Step 5. Run FastClick on the bottleneck machine
 ```
-$ git clone https://github.com/shuoshuc/CCA.git
-$ cd CCA
+$ git clone https://github.com/shuoshuc/clock-cc.git
+$ cd clock-cc
 $ sudo ./l2-switch.sh
 ```
 By running l2-switch.sh, we emulate a bottleneck using the Queue + LinkUnqueue
@@ -89,8 +89,8 @@ Additionally, it has a nice centralized control, which makes running large
 experiments and data collection much easier. To run experiments with different
 flows, execute the following commands.
 ```
-$ git clone https://github.com/shuoshuc/CCA.git
-$ cd CCA
+$ git clone https://github.com/shuoshuc/clock-cc.git
+$ cd clock-cc
 $ vi flowgrind.py <- update NUM_FLOWS accordingly.
 $ python3 flowgrind.py
 $ cat fg.log <- log is saved here.
@@ -100,7 +100,7 @@ $ cat fg.log <- log is saved here.
 With fg.log, we extract a few useful values such as throughput, cwnd, rtt. Use
 the fg_parser.sh to parse the log.
 ```
-$ cd CCA
+$ cd clock-cc
 $ ./fg_parser.sh data/fg.log
 ```
 
