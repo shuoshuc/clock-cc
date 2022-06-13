@@ -118,3 +118,15 @@ $ cd clock-cc/tcp_lp2
 $ sudo make
 $ sudo insmod tcp_lp2.ko
 ```
+
+## Step 11. Configure rsyslog
+For debugging purposes, we would want our CCAs to log to kernel logs. First, we
+disable log reduction to avoid unexpected filtering.
+```
+$ sudo sed -i 's/$RepeatedMsgReduction on/#$RepeatedMsgReduction on/g' /etc/rsyslog.conf
+```
+To avoid logs getting scattered, we configure rsyslog to only log to /var/log/kern.log.
+```
+$ sudo sed -i 's/*.*;auth,authpriv.none/*.*;auth,authpriv,kern.none/g' /etc/rsyslog.d/50-default.conf
+$ sudo service rsyslog restart
+```
