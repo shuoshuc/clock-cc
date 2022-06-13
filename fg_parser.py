@@ -90,7 +90,7 @@ def waitThru(folder):
 
 def kernLog(logfile):
     entries = []
-    pattern = re.compile(r".*\[(.*) PROBE_RTT\] sk=(\d+) at (\d+), min_rtt_us=(\d+)")
+    pattern = re.compile(r".*\[(.*) PROBE_RTT\] sk=(.*) at (\d+), min_rtt_us=(\d+)")
     with open(logfile, 'r') as f:
         for line in f:
             match = pattern.match(line)
